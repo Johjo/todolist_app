@@ -1,0 +1,1 @@
+web: streamlit run ./src/todolist_app/main.py --server.port $PORT
