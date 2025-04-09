@@ -8,6 +8,17 @@
     <h1>Liste de Tâches</h1>
     <p>UUID de la liste : {{ uuid }}</p>
 
+    <h2>Tâches</h2>
+    % if tasks:
+        <ul>
+            % for task in tasks:
+                <li>{{ task['description'] }}</li>
+            % end
+        </ul>
+    % else:
+        <p>Aucune tâche dans cette liste.</p>
+    % end
+
     <h2>Ajouter une tâche</h2>
     <form action="/todolist/{{ uuid }}/task" method="post">
         <label for="task-description">Description de la tâche :</label>
