@@ -4,7 +4,7 @@ from uuid import UUID, uuid4
 from typing import List, Dict, Optional
 
 from attr import dataclass
-from bottle import Bottle, TEMPLATE_PATH, template, request, redirect #type: ignore
+from bottle import Bottle, TEMPLATE_PATH, template, request, redirect, response #type: ignore
 from dotenv import load_dotenv
 
 
@@ -28,6 +28,10 @@ class ControllerPort:
 
     @abstractmethod
     def get_task(self, todolist_uuid: UUID, task_uuid: UUID) -> Optional[TaskPresentation]:
+        pass
+
+    @abstractmethod
+    def close_task(self, todolist_uuid: UUID, task_uuid: UUID) -> None:
         pass
 
 
@@ -63,6 +67,12 @@ def start_app(controller: ControllerPort):
         task = controller.get_task(todolist_uuid=UUID(todolist_uuid), task_uuid=UUID(task_uuid))
         return template('task', todolist_uuid=todolist_uuid, task=task)
 
+    @app.route('/todolist/<todolist_uuid>/task/<task_uuid>/close', method='POST')
+    def close_task(todolist_uuid, task_uuid):
+        controller.close_task(todolist_uuid=UUID(todolist_uuid), task_uuid=UUID(task_uuid))
+        response.status = 204
+        return ''
+
     return app
 
 load_dotenv()
@@ -88,6 +98,9 @@ class ControllerForDemo(ControllerPort):
 
     def get_task(self, todolist_uuid: UUID, task_uuid: UUID) -> Optional[TaskPresentation]:
         return TaskPresentation(uuid=task_uuid, name="buy the milk")
+
+    def close_task(self, todolist_uuid: UUID, task_uuid: UUID) -> None:
+        print(f"Tâche {task_uuid} fermée dans la liste {todolist_uuid}")
 
 
 start_app(controller=ControllerForDemo()).run(host=host, port=port, reloader=True, debug=True)
