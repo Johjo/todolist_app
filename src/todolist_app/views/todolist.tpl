@@ -12,7 +12,7 @@
     % if tasks:
         <ul>
             % for task in tasks:
-                <li>{{ task['description'] }}</li>
+                <li>{{ task.name }} (UUID: {{ task.uuid }})</li>
             % end
         </ul>
     % else:
