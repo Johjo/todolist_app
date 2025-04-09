@@ -12,7 +12,11 @@
     % if tasks:
         <ul>
             % for task in tasks:
-                <li>{{ task.name }} (UUID: {{ task.uuid }})</li>
+                <li>
+                    <a href="/todolist/{{ uuid }}/task/{{ task.uuid }}">
+                        {{ task.name }}
+                    </a>
+                </li>
             % end
         </ul>
     % else:
