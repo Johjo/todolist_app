@@ -28,7 +28,7 @@ def start_app(controller: ControllerPort):
 
     @app.route('/todolist', method='POST')
     def create_todolist():
-        todolist_name = request.forms.get('list_name')
+        todolist_name = request.forms.get('todolist-name')
         todolist_id = controller.create_todolist(name=todolist_name)
         redirect(f'/todolist/{todolist_id}')
 
