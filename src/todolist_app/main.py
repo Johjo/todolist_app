@@ -11,6 +11,10 @@ class ControllerPort:
     def create_todolist(self, name: str) -> UUID:
         pass
 
+    @abstractmethod
+    def create_task(self, todolist_uuid: UUID, task_description: str) -> UUID:
+        pass
+
 
 def start_app(controller: ControllerPort):
     current_dir = os.path.dirname(__file__)
@@ -32,6 +36,12 @@ def start_app(controller: ControllerPort):
     def show_todolist(uuid):
         return template('todolist', uuid=uuid)
 
+    @app.route('/todolist/<todolist_uuid>/task', method='POST')
+    def create_task(todolist_uuid):
+        task_description = request.forms.get('task_description')
+        controller.create_task(todolist_uuid=UUID(todolist_uuid), task_description=task_description)
+        redirect(f'/todolist/{todolist_uuid}')
+
     return app
 
 load_dotenv()
@@ -43,6 +53,10 @@ port = os.getenv("PORT")
 class ControllerForDemo(ControllerPort):
     def create_todolist(self, name: str) -> UUID:
         print(f"Nouvelle liste créée : {name}")
+        return uuid4()
+
+    def create_task(self, todolist_uuid: UUID, task_description: str) -> UUID:
+        print(f"Nouvelle tâche créée dans la liste {todolist_uuid} : {task_description}")
         return uuid4()
 
 
