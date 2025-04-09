@@ -7,7 +7,7 @@
 <body>
     <h1>Créer une Nouvelle Liste de Tâches</h1>
     
-    <form action="/create_list" method="post">
+    <form action="/todolist" method="post">
         <label for="list-name">Nom de la liste :</label>
         <input type="text" id="list-name" name="list_name" required>
         

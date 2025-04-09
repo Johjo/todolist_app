@@ -23,7 +23,7 @@ def start_app(controller: ControllerPort):
     def index():
         return template('index')
 
-    @app.route('/create_list', method='POST')
+    @app.route('/todolist', method='POST')
     def create_list():
         list_name = request.forms.get('list_name')
         controller.create_todolist(name=list_name)
