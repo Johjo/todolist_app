@@ -1,7 +1,7 @@
 import os
 from abc import abstractmethod
 from uuid import UUID, uuid4
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from attr import dataclass
 from bottle import Bottle, TEMPLATE_PATH, template, request, redirect #type: ignore
@@ -24,6 +24,10 @@ class ControllerPort:
 
     @abstractmethod
     def get_tasks(self, todolist_uuid: UUID) -> List[TaskPresentation]:
+        pass
+
+    @abstractmethod
+    def get_task(self, todolist_uuid: UUID, task_uuid: UUID) -> Optional[TaskPresentation]:
         pass
 
 
@@ -54,13 +58,17 @@ def start_app(controller: ControllerPort):
         controller.create_task(todolist_uuid=UUID(todolist_uuid), task_description=task_description)
         redirect(f'/todolist/{todolist_uuid}')
 
+    @app.route('/todolist/<todolist_uuid>/task/<task_uuid>')
+    def show_task(todolist_uuid, task_uuid):
+        task = controller.get_task(todolist_uuid=UUID(todolist_uuid), task_uuid=UUID(task_uuid))
+        return template('task', todolist_uuid=todolist_uuid, task=task)
+
     return app
 
 load_dotenv()
 
 host = os.getenv("HOST")
 port = os.getenv("PORT")
-
 
 
 class ControllerForDemo(ControllerPort):
@@ -77,6 +85,9 @@ class ControllerForDemo(ControllerPort):
 
     def get_tasks(self, todolist_uuid: UUID) -> List[TaskPresentation]:
         return [TaskPresentation(uuid=uuid4(), name="buy the milk"), TaskPresentation(uuid=uuid4(), name="eat something")]
+
+    def get_task(self, todolist_uuid: UUID, task_uuid: UUID) -> Optional[TaskPresentation]:
+        return TaskPresentation(uuid=task_uuid, name="buy the milk")
 
 
 start_app(controller=ControllerForDemo()).run(host=host, port=port, reloader=True, debug=True)
