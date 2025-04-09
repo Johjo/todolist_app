@@ -3,9 +3,15 @@ from abc import abstractmethod
 from uuid import UUID, uuid4
 from typing import List, Dict
 
+from attr import dataclass
 from bottle import Bottle, TEMPLATE_PATH, template, request, redirect #type: ignore
 from dotenv import load_dotenv
 
+
+@dataclass
+class TaskPresentation:
+    uuid:  UUID
+    name: str
 
 class ControllerPort:
     @abstractmethod
@@ -17,7 +23,7 @@ class ControllerPort:
         pass
 
     @abstractmethod
-    def get_tasks(self, todolist_uuid: UUID) -> List[Dict[str, str]]:
+    def get_tasks(self, todolist_uuid: UUID) -> List[TaskPresentation]:
         pass
 
 
@@ -56,27 +62,21 @@ host = os.getenv("HOST")
 port = os.getenv("PORT")
 
 
+
 class ControllerForDemo(ControllerPort):
-    _tasks: Dict[UUID, List[Dict[str, str]]] = {}
 
     def create_todolist(self, name: str) -> UUID:
         todolist_id = uuid4()
-        self._tasks[todolist_id] = []
         print(f"Nouvelle liste créée : {name}")
         return todolist_id
 
     def create_task(self, todolist_uuid: UUID, task_description: str) -> UUID:
         task_id = uuid4()
-        task = {
-            'id': str(task_id),
-            'description': task_description
-        }
-        self._tasks[todolist_uuid].append(task)
         print(f"Nouvelle tâche créée dans la liste {todolist_uuid} : {task_description}")
         return task_id
 
-    def get_tasks(self, todolist_uuid: UUID) -> List[Dict[str, str]]:
-        return self._tasks.get(todolist_uuid, [])
+    def get_tasks(self, todolist_uuid: UUID) -> List[TaskPresentation]:
+        return [TaskPresentation(uuid=uuid4(), name="buy the milk"), TaskPresentation(uuid=uuid4(), name="eat something")]
 
 
-start_app(controller=ControllerForDemo()).run(host=host, port=port, reloader=True)
+start_app(controller=ControllerForDemo()).run(host=host, port=port, reloader=True, debug=True)
