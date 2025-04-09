@@ -1,10 +1,19 @@
-import streamlit as st
+import os
+from bottle import Bottle, TEMPLATE_PATH, template
 
-def main():
-    st.set_page_config(page_title="Test Project")
+app = Bottle()
 
-    st.title("Test Project")
-    st.write("Hello World")
+# Ajout du chemin `views` à TEMPLATE_PATH
+CURRENT_DIR = os.path.dirname(__file__)
+VIEWS_DIR = os.path.join(CURRENT_DIR, 'views')
+TEMPLATE_PATH.insert(0, VIEWS_DIR)
 
-if __name__ == "__main__":
-    main()
+host = os.getenv("HOST")
+port = os.getenv("PORT")
+
+@app.route('/')
+def index():
+    return template('index')
+
+app.run(host=host, port=port)
+
