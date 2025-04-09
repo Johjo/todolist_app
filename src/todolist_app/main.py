@@ -1,14 +1,23 @@
 import os
+from abc import abstractmethod
+
 from bottle import Bottle, TEMPLATE_PATH, template, request
 from dotenv import load_dotenv
 
-def start_app():
+
+class ControllerPort:
+    @abstractmethod
+    def create_todolist(self, name: str) -> None:
+        pass
+
+
+def start_app(controller: ControllerPort):
+    current_dir = os.path.dirname(__file__)
+    views_dir = os.path.join(current_dir, 'views')
+    TEMPLATE_PATH.insert(0, views_dir)
     app = Bottle()
 
     # Ajout du chemin `views` à TEMPLATE_PATH
-    CURRENT_DIR = os.path.dirname(__file__)
-    VIEWS_DIR = os.path.join(CURRENT_DIR, 'views')
-    TEMPLATE_PATH.insert(0, VIEWS_DIR)
 
     @app.route('/')
     def index():
@@ -17,7 +26,7 @@ def start_app():
     @app.route('/create_list', method='POST')
     def create_list():
         list_name = request.forms.get('list_name')
-        print(f"Nouvelle liste créée : {list_name}")
+        controller.create_todolist(name=list_name)
         return template('index')
 
     return app
@@ -27,5 +36,11 @@ load_dotenv()
 host = os.getenv("HOST")
 port = os.getenv("PORT")
 
-app = start_app()
-app.run(host=host, port=port)
+
+class ControllerForDemo(ControllerPort):
+    def create_todolist(self, name: str) -> None:
+        print(f"Nouvelle liste créée : {name}")
+
+
+
+start_app(controller=ControllerForDemo()).run(host=host, port=port, reloader=True)
