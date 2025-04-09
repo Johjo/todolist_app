@@ -13,6 +13,7 @@
         <ul>
             % for task in tasks:
                 <li>
+                    <input type="checkbox" id="task-{{ task.uuid }}" name="task-{{ task.uuid }}">
                     <a href="/todolist/{{ uuid }}/task/{{ task.uuid }}">
                         {{ task.name }}
                     </a>
