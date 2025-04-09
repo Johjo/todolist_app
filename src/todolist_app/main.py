@@ -2,7 +2,7 @@ import os
 from abc import abstractmethod
 from uuid import UUID, uuid4
 
-from bottle import Bottle, TEMPLATE_PATH, template, request #type: ignore
+from bottle import Bottle, TEMPLATE_PATH, template, request, redirect #type: ignore
 from dotenv import load_dotenv
 
 
@@ -25,8 +25,12 @@ def start_app(controller: ControllerPort):
     @app.route('/todolist', method='POST')
     def create_list():
         list_name = request.forms.get('list_name')
-        controller.create_todolist(name=list_name)
-        return template('index')
+        todolist_id = controller.create_todolist(name=list_name)
+        redirect(f'/todolist/{todolist_id}')
+
+    @app.route('/todolist/<uuid>')
+    def show_todolist(uuid):
+        return template('todolist', uuid=uuid)
 
     return app
 
