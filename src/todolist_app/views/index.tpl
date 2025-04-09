@@ -8,19 +8,10 @@
     <h1>Créer une Nouvelle Liste de Tâches</h1>
     
     <form action="/todolist" method="post">
-        <label for="list-name">Nom de la liste :</label>
-        <input type="text" id="list-name" name="list_name" required>
+        <label for="todolist-name">Nom de la liste :</label>
+        <input type="text" id="todolist-name" name="todolist-name" required>
         
         <button type="submit">Créer la Liste</button>
     </form>
-
-    % if defined('lists'):
-        <h2>Listes existantes :</h2>
-        <ul>
-            % for todo_list in lists:
-                <li>{{ todo_list }}</li>
-            % end
-        </ul>
-    % end
 </body>
 </html>
