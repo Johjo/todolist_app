@@ -3,13 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Liste de Tâches</title>
-    <script>
-        function closeTask(todolistUuid, taskUuid) {
-            fetch(`/todolist/${todolistUuid}/task/${taskUuid}/close`, {
-                method: 'POST'
-            });
-        }
-    </script>
 </head>
 <body>
     <h1>Liste de Tâches</h1>
@@ -20,9 +13,6 @@
         <ul>
             % for task in tasks:
                 <li>
-                    <input type="checkbox" id="task-{{ task.uuid }}" 
-                           name="task-{{ task.uuid }}"
-                           onchange="closeTask('{{ uuid }}', '{{ task.uuid }}')">
                     <a href="/todolist/{{ uuid }}/task/{{ task.uuid }}">
                         {{ task.name }}
                     </a>

@@ -67,12 +67,6 @@ def start_app(controller: ControllerPort):
         task = controller.get_task(todolist_uuid=UUID(todolist_uuid), task_uuid=UUID(task_uuid))
         return template('task', todolist_uuid=todolist_uuid, task=task)
 
-    @app.route('/todolist/<todolist_uuid>/task/<task_uuid>/close', method='POST')
-    def close_task(todolist_uuid, task_uuid):
-        controller.close_task(todolist_uuid=UUID(todolist_uuid), task_uuid=UUID(task_uuid))
-        response.status = 204
-        return ''
-
     return app
 
 load_dotenv()
