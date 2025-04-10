@@ -11,7 +11,7 @@ class ControllerForDemo(ControllerPort):
         print(f"Nouvelle liste créée : {todolist_id}")
         return todolist_id
 
-    def create_task(self, todolist_uuid: UUID, task_description: str) -> UUID:
+    def open_task(self, todolist_uuid: UUID, task_description: str) -> UUID:
         task_id = uuid4()
         print(f"Nouvelle tâche créée dans la liste {todolist_uuid} : {task_description}")
         return task_id
