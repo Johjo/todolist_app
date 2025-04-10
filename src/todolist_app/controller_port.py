@@ -1,8 +1,8 @@
 from abc import abstractmethod
-from dataclasses import dataclass
 from typing import List, Optional
 from uuid import UUID
 
+from attr import dataclass
 
 
 @dataclass
@@ -11,23 +11,23 @@ class TaskPresentation:
     name: str
 
 
-class TodolistControllerPort:
+class ControllerPort:
     @abstractmethod
-    def create_todolist(self) -> UUID:
+    def create_todolist(self, name: str) -> UUID:
         pass
 
     @abstractmethod
-    def open_task(self, todolist_id: UUID, task_description: str) -> UUID:
+    def create_task(self, todolist_uuid: UUID, task_description: str) -> UUID:
         pass
 
     @abstractmethod
-    def get_tasks(self, todolist_id: UUID) -> List[TaskPresentation]:
+    def get_tasks(self, todolist_uuid: UUID) -> List[TaskPresentation]:
         pass
 
     @abstractmethod
-    def get_task(self, todolist_id: UUID, task_id: UUID) -> TaskPresentation | None:
+    def get_task(self, todolist_uuid: UUID, task_uuid: UUID) -> Optional[TaskPresentation]:
         pass
 
     @abstractmethod
-    def close_task(self, todolist_id: UUID, task_id: UUID) -> None:
+    def close_task(self, todolist_uuid: UUID, task_uuid: UUID) -> None:
         pass

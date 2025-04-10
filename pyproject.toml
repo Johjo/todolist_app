@@ -14,7 +14,10 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{include = "todolist_app", from = "src"}]
+packages = [
+    { include = "src/" },
+    { include = "todolist_app", from = "src" }
+]
 
 
 [build-system]
