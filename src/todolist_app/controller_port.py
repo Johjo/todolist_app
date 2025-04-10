@@ -1,8 +1,8 @@
 from abc import abstractmethod
+from dataclasses import dataclass
 from typing import List, Optional
 from uuid import UUID
 
-from attr import dataclass
 
 
 @dataclass
