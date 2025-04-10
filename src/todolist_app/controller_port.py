@@ -17,17 +17,17 @@ class ControllerPort:
         pass
 
     @abstractmethod
-    def open_task(self, todolist_uuid: UUID, task_description: str) -> UUID:
+    def open_task(self, todolist_id: UUID, task_description: str) -> UUID:
         pass
 
     @abstractmethod
-    def get_tasks(self, todolist_uuid: UUID) -> List[TaskPresentation]:
+    def get_tasks(self, todolist_id: UUID) -> List[TaskPresentation]:
         pass
 
     @abstractmethod
-    def get_task(self, todolist_uuid: UUID, task_uuid: UUID) -> Optional[TaskPresentation]:
+    def get_task(self, todolist_id: UUID, task_id: UUID) -> Optional[TaskPresentation]:
         pass
 
     @abstractmethod
-    def close_task(self, todolist_uuid: UUID, task_uuid: UUID) -> None:
+    def close_task(self, todolist_id: UUID, task_id: UUID) -> None:
         pass

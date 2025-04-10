@@ -23,18 +23,18 @@ def start_app(controller: ControllerPort) -> Bottle:
 
     @app.route('/todolist/<uuid>')
     def show_todolist(uuid) -> None:
-        tasks = controller.get_tasks(todolist_uuid=UUID(uuid))
+        tasks = controller.get_tasks(todolist_id=UUID(uuid))
         return template('todolist', uuid=uuid, tasks=tasks)
 
     @app.route('/todolist/<todolist_uuid>/task', method='POST')
     def create_task(todolist_uuid) -> None:
         task_description = request.forms.get('task_description')
-        controller.open_task(todolist_uuid=UUID(todolist_uuid), task_description=task_description)
+        controller.open_task(todolist_id=UUID(todolist_uuid), task_description=task_description)
         redirect(f'/todolist/{todolist_uuid}')
 
     @app.route('/todolist/<todolist_uuid>/task/<task_uuid>')
     def show_task(todolist_uuid, task_uuid) -> None:
-        task = controller.get_task(todolist_uuid=UUID(todolist_uuid), task_uuid=UUID(task_uuid))
+        task = controller.get_task(todolist_id=UUID(todolist_uuid), task_id=UUID(task_uuid))
         return template('task', todolist_uuid=todolist_uuid, task=task)
 
     return app

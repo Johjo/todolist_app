@@ -9,7 +9,12 @@ from todolist_app.controller_port import ControllerPort, TaskPresentation
 
 
 class TodolistGatewayPort(ABC):
+    @abstractmethod
     def open_task(self, todolist_id: UUID, task_id: UUID, task_description: str) -> None:
+        pass
+
+    @abstractmethod
+    def tasks(self, todolist_id: UUID) -> list[TaskPresentation]:
         pass
 
 
@@ -35,13 +40,13 @@ class Controller(ControllerPort):
         return task_id
 
 
-    def get_tasks(self, todolist_uuid: UUID) -> List[TaskPresentation]:
+    def get_tasks(self, todolist_id: UUID) -> List[TaskPresentation]:
+        return self._todolist_gateway.tasks(todolist_id=todolist_id)
+
+    def get_task(self, todolist_id: UUID, task_id: UUID) -> Optional[TaskPresentation]:
         raise NotImplementedError()
 
-    def get_task(self, todolist_uuid: UUID, task_uuid: UUID) -> Optional[TaskPresentation]:
-        raise NotImplementedError()
-
-    def close_task(self, todolist_uuid: UUID, task_uuid: UUID) -> None:
+    def close_task(self, todolist_id: UUID, task_id: UUID) -> None:
         raise NotImplementedError()
 
 
@@ -71,13 +76,20 @@ History = OpenTask
 
 class TodolistGatewayForTest(TodolistGatewayPort):
     def __init__(self) -> None:
+        self._tasks: dict[UUID, list[TaskPresentation]] = {}
         self._history: list[History] = []
 
     def open_task(self, todolist_id: UUID, task_id: UUID, task_description: str) -> None:
         self._history.append(OpenTask(todolist_id=todolist_id, task_id=task_id, task_description=task_description))
 
+    def tasks(self, todolist_id: UUID) :
+        return self._tasks[todolist_id]
+
     def history(self) -> list[History]:
         return self._history
+
+    def feed(self, todolist_id: UUID, *tasks: TaskPresentation):
+        self._tasks[todolist_id] = list(tasks)
 
 
 @pytest.fixture
@@ -123,3 +135,10 @@ def test_give_task_id_when_create_task(uuid_generator: UuidGeneratorForTest,
 
     assert actual == expected.task_id
 
+
+def test_give_all_tasks(sut: Controller, todolist_gateway: TodolistGatewayForTest):
+    todolist_id = uuid4()
+    expected = [TaskPresentation(uuid=uuid4(), name="buy the milk"), TaskPresentation(uuid=uuid4(), name="eat something")]
+    todolist_gateway.feed(todolist_id, *expected)
+
+    assert sut.get_tasks(todolist_id=todolist_id) == expected
