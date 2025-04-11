@@ -1,11 +1,11 @@
 from abc import abstractmethod, ABC
 from dataclasses import dataclass
-from typing import Optional, List
+from typing import List
 from uuid import UUID, uuid4
 
 import pytest
 
-from todolist_app.controller_port import TodolistControllerPort, TaskPresentation
+from todolist_app.controller_port import TaskPresentation, ControllerPort
 
 
 class TodolistGatewayPort(ABC):
@@ -24,7 +24,7 @@ class UuidGeneratorPort(ABC):
         pass
 
 
-class TodolistController(TodolistControllerPort):
+class TodolistController(ControllerPort):
     def __init__(self, uuid_generator: UuidGeneratorPort, todolist_gateway: TodolistGatewayPort) -> None:
         self._todolist_gateway = todolist_gateway
         self._uuid_generator : UuidGeneratorPort = uuid_generator

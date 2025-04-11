@@ -13,11 +13,11 @@ class TaskPresentation:
 
 class ControllerPort:
     @abstractmethod
-    def create_todolist(self, name: str) -> UUID:
+    def create_todolist(self) -> UUID:
         pass
 
     @abstractmethod
-    def create_task(self, todolist_uuid: UUID, task_description: str) -> UUID:
+    def open_task(self, todolist_uuid: UUID, task_description: str) -> UUID:
         pass
 
     @abstractmethod

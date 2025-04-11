@@ -1,9 +1,9 @@
-import os
+import os  # type: ignore
 from uuid import UUID
 
-from bottle import TEMPLATE_PATH, Bottle, template, request, redirect
+from bottle import TEMPLATE_PATH, Bottle, template, request, redirect  # type: ignore
 
-from src.todolist_app.controller_port import ControllerPort
+from todolist_app.controller_port import ControllerPort
 
 
 def start_app(controller: ControllerPort):

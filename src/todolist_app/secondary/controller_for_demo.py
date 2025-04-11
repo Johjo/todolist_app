@@ -1,14 +1,14 @@
 from typing import List, Optional
 from uuid import UUID, uuid4
 
-from src.todolist_app.controller_port import ControllerPort, TaskPresentation
+from todolist_app.controller_port import ControllerPort, TaskPresentation
 
 
 class ControllerForDemo(ControllerPort):
 
-    def create_todolist(self, name: str) -> UUID:
+    def create_todolist(self) -> UUID:
         todolist_id = uuid4()
-        print(f"Nouvelle liste créée : {name}")
+        print(f"Nouvelle liste créée : {todolist_id}")
         return todolist_id
 
     def create_task(self, todolist_uuid: UUID, task_description: str) -> UUID:
