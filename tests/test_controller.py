@@ -5,7 +5,7 @@ from uuid import UUID, uuid4
 
 import pytest
 
-from todolist_app.controller_port import TaskPresentation, ControllerPort
+from todolist_app.controller_port import TaskPresentation, TodolistControllerPort
 
 
 class TodolistGatewayPort(ABC):
@@ -24,7 +24,7 @@ class UuidGeneratorPort(ABC):
         pass
 
 
-class TodolistController(ControllerPort):
+class TodolistController(TodolistControllerPort):
     def __init__(self, uuid_generator: UuidGeneratorPort, todolist_gateway: TodolistGatewayPort) -> None:
         self._todolist_gateway = todolist_gateway
         self._uuid_generator : UuidGeneratorPort = uuid_generator
