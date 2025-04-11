@@ -3,8 +3,7 @@ from uuid import UUID
 
 from bottle import TEMPLATE_PATH, Bottle, template, request, redirect  # type: ignore
 
-from todolist_app.controller_port import TodolistControllerPort
-
+from todolist_controller.controller_port import TodolistControllerPort
 
 def start_app(controller: TodolistControllerPort) -> Bottle:
     current_dir = os.path.dirname(__file__)

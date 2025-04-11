@@ -11,7 +11,8 @@ dependencies = [
     "pytest (>=8.3.5,<9.0.0)",
     "bottle (>=0.13.2,<0.14.0)",
     "dotenv (>=0.9.9,<0.10.0)",
-    "mypy (>=1.15.0,<2.0.0)"
+    "mypy (>=1.15.0,<2.0.0)",
+    "todolist-controller @ git+https://github.com/Johjo/todolist_controller.git"
 ]
 
 [tool.poetry]

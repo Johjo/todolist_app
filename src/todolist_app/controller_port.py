@@ -11,7 +11,7 @@ class TaskPresentation:
     name: str
 
 
-class TodolistControllerPort:
+class TodolistControllerOldPort:
     @abstractmethod
     def create_todolist(self) -> UUID:
         pass

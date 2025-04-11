@@ -5,8 +5,8 @@ from uuid import UUID, uuid4
 
 import pytest
 
-from todolist_app.controller_port import TaskPresentation, TodolistControllerPort
-
+from todolist_app.controller_port import TaskPresentation
+from todolist_app.controller_port import TodolistControllerPort
 
 class TodolistGatewayPort(ABC):
     @abstractmethod

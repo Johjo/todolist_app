@@ -181,6 +181,25 @@ files = [
 cli = ["click (>=5.0)"]
 
 [[package]]
+name = "todolist-controller"
+version = "0.1.0"
+description = ""
+optional = false
+python-versions = ">=3.13"
+groups = ["main"]
+files = []
+develop = false
+
+[package.dependencies]
+pytest = ">=8.3.5,<9.0.0"
+
+[package.source]
+type = "git"
+url = "https://github.com/Johjo/todolist_controller.git"
+reference = "HEAD"
+resolved_reference = "8a79aad98aae3e338f0065854bb8adecc0a61499"
+
+[[package]]
 name = "typing-extensions"
 version = "4.13.1"
 description = "Backported and Experimental Type Hints for Python 3.8+"
@@ -195,4 +214,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13"
-content-hash = "4f183d39478a682c7fd1cddb82e3031ba465c5c895794941730c8a814fda5e3e"
+content-hash = "3f525c6d5f72ed05b95c4c4c03f47bc87dd7e3bf10bec7ac6224aedf53c6154f"
