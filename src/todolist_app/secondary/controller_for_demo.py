@@ -1,10 +1,10 @@
 from typing import List, Optional
 from uuid import UUID, uuid4
 
-from todolist_app.controller_port import ControllerPort, TaskPresentation
+from todolist_app.controller_port import TodolistControllerPort, TaskPresentation
 
 
-class ControllerForDemo(ControllerPort):
+class TodolistControllerForDemo(TodolistControllerPort):
 
     def create_todolist(self) -> UUID:
         todolist_id = uuid4()
@@ -19,7 +19,7 @@ class ControllerForDemo(ControllerPort):
     def get_tasks(self, todolist_uuid: UUID) -> List[TaskPresentation]:
         return [TaskPresentation(uuid=uuid4(), name="buy the milk"), TaskPresentation(uuid=uuid4(), name="eat something")]
 
-    def get_task(self, todolist_id: UUID, task_id: UUID) -> Optional[TaskPresentation]:
+    def get_task(self, todolist_id: UUID, task_id: UUID) -> TaskPresentation | None:
         return TaskPresentation(uuid=task_id, name="buy the milk")
 
     def close_task(self, todolist_id: UUID, task_id: UUID) -> None:

@@ -3,10 +3,10 @@ from uuid import UUID
 
 from bottle import TEMPLATE_PATH, Bottle, template, request, redirect #type: ignore
 
-from todolist_app.controller_port import ControllerPort
+from todolist_app.controller_port import TodolistControllerPort
 
 
-def start_app(controller: ControllerPort) -> Bottle:
+def start_app(controller: TodolistControllerPort) -> Bottle:
     current_dir = os.path.dirname(__file__)
     views_dir = os.path.join(current_dir, 'views')
     TEMPLATE_PATH.insert(0, views_dir)

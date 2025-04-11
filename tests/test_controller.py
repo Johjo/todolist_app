@@ -5,7 +5,7 @@ from uuid import UUID, uuid4
 
 import pytest
 
-from todolist_app.controller_port import ControllerPort, TaskPresentation
+from todolist_app.controller_port import TodolistControllerPort, TaskPresentation
 
 
 class TodolistGatewayPort(ABC):
@@ -24,7 +24,7 @@ class UuidGeneratorPort(ABC):
         pass
 
 
-class Controller(ControllerPort):
+class TodolistController(TodolistControllerPort):
     def __init__(self, uuid_generator: UuidGeneratorPort, todolist_gateway: TodolistGatewayPort) -> None:
         self._todolist_gateway = todolist_gateway
         self._uuid_generator : UuidGeneratorPort = uuid_generator
@@ -43,7 +43,7 @@ class Controller(ControllerPort):
     def get_tasks(self, todolist_id: UUID) -> List[TaskPresentation]:
         return self._todolist_gateway.tasks(todolist_id=todolist_id)
 
-    def get_task(self, todolist_id: UUID, task_id: UUID) -> Optional[TaskPresentation]:
+    def get_task(self, todolist_id: UUID, task_id: UUID) -> TaskPresentation | None:
         raise NotImplementedError()
 
     def close_task(self, todolist_id: UUID, task_id: UUID) -> None:
@@ -103,11 +103,11 @@ def todolist_gateway() -> TodolistGatewayForTest:
 
 
 @pytest.fixture
-def sut(uuid_generator: UuidGeneratorForTest, todolist_gateway: TodolistGatewayForTest) -> Controller:
-    return Controller(uuid_generator, todolist_gateway)
+def sut(uuid_generator: UuidGeneratorForTest, todolist_gateway: TodolistGatewayForTest) -> TodolistController:
+    return TodolistController(uuid_generator, todolist_gateway)
 
 
-def test_get_created_todolist_uuid_when_create_todolist(uuid_generator: UuidGeneratorForTest, sut: Controller):
+def test_get_created_todolist_uuid_when_create_todolist(uuid_generator: UuidGeneratorForTest, sut: TodolistController):
     expected_todolist_id = uuid4()
     uuid_generator.feed(expected_todolist_id)
 
@@ -117,7 +117,7 @@ def test_get_created_todolist_uuid_when_create_todolist(uuid_generator: UuidGene
 
 
 def test_create_task_on_gateway_when_create_task(uuid_generator: UuidGeneratorForTest,
-                                                 todolist_gateway: TodolistGatewayForTest, sut: Controller):
+                                                 todolist_gateway: TodolistGatewayForTest, sut: TodolistController):
     expected = OpenTask(todolist_id=(uuid4()), task_id=uuid4(), task_description="buy the milk")
     uuid_generator.feed(expected.task_id)
 
@@ -127,7 +127,7 @@ def test_create_task_on_gateway_when_create_task(uuid_generator: UuidGeneratorFo
 
 
 def test_give_task_id_when_create_task(uuid_generator: UuidGeneratorForTest,
-                                                 todolist_gateway: TodolistGatewayForTest, sut: Controller):
+                                       todolist_gateway: TodolistGatewayForTest, sut: TodolistController):
     expected = OpenTask(todolist_id=(uuid4()), task_id=uuid4(), task_description="buy the milk")
     uuid_generator.feed(expected.task_id)
 
@@ -136,7 +136,7 @@ def test_give_task_id_when_create_task(uuid_generator: UuidGeneratorForTest,
     assert actual == expected.task_id
 
 
-def test_give_all_tasks(sut: Controller, todolist_gateway: TodolistGatewayForTest):
+def test_give_all_tasks(sut: TodolistController, todolist_gateway: TodolistGatewayForTest):
     todolist_id = uuid4()
     expected = [TaskPresentation(uuid=uuid4(), name="buy the milk"), TaskPresentation(uuid=uuid4(), name="eat something")]
     todolist_gateway.feed(todolist_id, *expected)

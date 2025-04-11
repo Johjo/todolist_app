@@ -11,7 +11,7 @@ class TaskPresentation:
     name: str
 
 
-class ControllerPort:
+class TodolistControllerPort:
     @abstractmethod
     def create_todolist(self) -> UUID:
         pass
@@ -25,7 +25,7 @@ class ControllerPort:
         pass
 
     @abstractmethod
-    def get_task(self, todolist_id: UUID, task_id: UUID) -> Optional[TaskPresentation]:
+    def get_task(self, todolist_id: UUID, task_id: UUID) -> TaskPresentation | None:
         pass
 
     @abstractmethod
