@@ -1,8 +1,7 @@
 from typing import List, Optional
 from uuid import UUID, uuid4
 
-from todolist_app.controller_port import TaskPresentation
-from todolist_controller.controller_port import TodolistControllerPort  # type: ignore
+from todolist_controller.controller_port import TodolistControllerPort, TaskPresentation  # type: ignore
 
 
 class TodolistControllerForDemo(TodolistControllerPort):
