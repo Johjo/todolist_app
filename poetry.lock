@@ -192,12 +192,33 @@ develop = false
 
 [package.dependencies]
 pytest = ">=8.3.5,<9.0.0"
+todolist-hexagon = {git = "https://github.com/Johjo/todolist_hexagon.git"}
 
 [package.source]
 type = "git"
-url = "https://github.com/Johjo/todolist_controller.git"
+url = "https://github.com/Johjo/todolist_controller"
 reference = "HEAD"
-resolved_reference = "cdb967cf9a127ba7247f4a40a8517ce72d797afe"
+resolved_reference = "b78eb30b5517eb02babc7d5d8ea1f893cea6eec3"
+
+[[package]]
+name = "todolist-hexagon"
+version = "0.1.0"
+description = ""
+optional = false
+python-versions = ">=3.13"
+groups = ["main"]
+files = []
+develop = false
+
+[package.dependencies]
+mypy = ">=1.15.0,<2.0.0"
+pytest = ">=8.3.5,<9.0.0"
+
+[package.source]
+type = "git"
+url = "https://github.com/Johjo/todolist_hexagon.git"
+reference = "HEAD"
+resolved_reference = "1bba6edb295ca13f26d8784df6f9974817d9505a"
 
 [[package]]
 name = "typing-extensions"
@@ -214,4 +235,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13"
-content-hash = "3f525c6d5f72ed05b95c4c4c03f47bc87dd7e3bf10bec7ac6224aedf53c6154f"
+content-hash = "31cfd69a619647baf1c5681744d30a563dd0cb4f14b22f441bbee4d13b085a62"
