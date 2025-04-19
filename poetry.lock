@@ -118,14 +118,14 @@ files = [
 
 [[package]]
 name = "packaging"
-version = "24.2"
+version = "25.0"
 description = "Core utilities for Python packages"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "packaging-24.2-py3-none-any.whl", hash = "sha256:09abb1bccd265c01f4a3aa3f7a7db064b36514d2cba19a2f694fe6150451a759"},
-    {file = "packaging-24.2.tar.gz", hash = "sha256:c228a6dc5e932d346bc5739379109d49e8853dd8223571c7c5b55260edc0b97f"},
+    {file = "packaging-25.0-py3-none-any.whl", hash = "sha256:29572ef2b1f17581046b3a2227d5c611fb25ec70ca1ba8554b24b0e69331a484"},
+    {file = "packaging-25.0.tar.gz", hash = "sha256:d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f"},
 ]
 
 [[package]]
@@ -198,7 +198,7 @@ todolist-hexagon = {git = "https://github.com/Johjo/todolist_hexagon.git"}
 type = "git"
 url = "https://github.com/Johjo/todolist_controller"
 reference = "HEAD"
-resolved_reference = "b78eb30b5517eb02babc7d5d8ea1f893cea6eec3"
+resolved_reference = "e225b1972aa383e5061defacc5cda38bed4bddfc"
 
 [[package]]
 name = "todolist-hexagon"
@@ -218,7 +218,7 @@ pytest = ">=8.3.5,<9.0.0"
 type = "git"
 url = "https://github.com/Johjo/todolist_hexagon.git"
 reference = "HEAD"
-resolved_reference = "1bba6edb295ca13f26d8784df6f9974817d9505a"
+resolved_reference = "4e62f28de7a2566d77c928e82f91463107b73b6d"
 
 [[package]]
 name = "typing-extensions"
