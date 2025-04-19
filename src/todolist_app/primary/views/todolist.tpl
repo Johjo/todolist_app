@@ -9,6 +9,7 @@
     <p>UUID de la liste : {{ uuid }}</p>
 
     <h2>Tâches</h2>
+    {{ todolist_raw_events }}
     % if tasks:
         <ul>
             % for task in tasks:
