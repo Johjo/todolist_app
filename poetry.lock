@@ -198,7 +198,7 @@ todolist-hexagon = {git = "https://github.com/Johjo/todolist_hexagon.git"}
 type = "git"
 url = "https://github.com/Johjo/todolist_controller"
 reference = "HEAD"
-resolved_reference = "80496d87cc319979c4019450b1b5604d41c7f891"
+resolved_reference = "d0bd405b1f872116c3fb37a43d74c1075478f5b8"
 
 [[package]]
 name = "todolist-hexagon"

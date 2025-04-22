@@ -16,5 +16,7 @@
     % else:
         <p>Tâche non trouvée.</p>
     % end
+
+    % include('history.tpl', events=events)
 </body>
 </html>

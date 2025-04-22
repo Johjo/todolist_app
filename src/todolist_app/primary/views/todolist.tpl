@@ -9,8 +9,7 @@
     <p>UUID de la liste : {{ uuid }}</p>
 
     <h2>Tâches</h2>
-    {{ todolist_raw_events }}
-    % if todolist.tasks:
+    % if todolist and todolist.tasks:
         <ul>
             % for task in todolist.tasks:
                 <li>
@@ -31,5 +30,7 @@
 
         <button type="submit">Ajouter la tâche</button>
     </form>
+
+    % include('history.tpl', events=events)
 </body>
 </html>
