@@ -2,14 +2,14 @@
 
 [[package]]
 name = "bottle"
-version = "0.13.2"
+version = "0.13.3"
 description = "Fast and simple WSGI-framework for small web-applications."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "bottle-0.13.2-py2.py3-none-any.whl", hash = "sha256:27569ab8d1332fbba3e400b3baab2227ab4efb4882ff147af05a7c00ed73409c"},
-    {file = "bottle-0.13.2.tar.gz", hash = "sha256:e53803b9d298c7d343d00ba7d27b0059415f04b9f6f40b8d58b5bf914ba9d348"},
+    {file = "bottle-0.13.3-py2.py3-none-any.whl", hash = "sha256:551709073d750d2e88ade05915f0d5dbbbcb8e1d82573fbe85a0635eb842ab07"},
+    {file = "bottle-0.13.3.tar.gz", hash = "sha256:1c23aeb30aa8a13f39c60c0da494530ddd5de3da235bc431b818a50d999de49f"},
 ]
 
 [[package]]
@@ -198,7 +198,7 @@ todolist-hexagon = {git = "https://github.com/Johjo/todolist_hexagon.git"}
 type = "git"
 url = "https://github.com/Johjo/todolist_controller"
 reference = "HEAD"
-resolved_reference = "e225b1972aa383e5061defacc5cda38bed4bddfc"
+resolved_reference = "eb8b25f8b389147c4f4c6b0f01a9815d6cb52940"
 
 [[package]]
 name = "todolist-hexagon"

@@ -9,7 +9,7 @@
 
     % if task:
         <h2>{{ task.name }}</h2>
-        <p>UUID de la tâche : {{ task.uuid }}</p>
+        <p>UUID de la tâche : {{ task.key }}</p>
         <p>
             <a href="/todolist/{{ todolist_uuid }}">Retour à la liste</a>
         </p>

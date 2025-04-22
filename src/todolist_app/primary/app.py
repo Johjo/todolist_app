@@ -22,7 +22,7 @@ def start_app(controller: TodolistControllerPort) -> Bottle:
 
     @app.route('/todolist/<uuid>')
     def show_todolist(uuid) -> None:
-        tasks = controller.get_tasks(todolist_key=UUID(uuid))
+        tasks = controller.get_todolist(todolist_key=UUID(uuid))
         return template('todolist', uuid=uuid, tasks=tasks,
                         todolist_raw_events=controller.get_raw_todolist(todolist_key=UUID(uuid)))
 
@@ -34,7 +34,7 @@ def start_app(controller: TodolistControllerPort) -> Bottle:
 
     @app.route('/todolist/<todolist_uuid>/task/<task_uuid>')
     def show_task(todolist_uuid, task_uuid) -> None:
-        task = controller.get_task(todolist_key=UUID(todolist_uuid), task_key=UUID(task_uuid))
+        task = controller.get_task(task_key=UUID(task_uuid))
         return template('task', todolist_uuid=todolist_uuid, task=task)
 
     return app
