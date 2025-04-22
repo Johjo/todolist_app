@@ -32,9 +32,15 @@ def start_app(controller: TodolistControllerPort) -> Bottle:
         controller.open_task(todolist_key=UUID(todolist_uuid), title=task_description, description="TODO")
         redirect(f'/todolist/{todolist_uuid}')
 
-    @app.route('/todolist/<todolist_uuid>/task/<task_uuid>')
-    def show_task(todolist_uuid, task_uuid) -> None:
+    @app.route('/task/<task_uuid>')
+    def show_task(task_uuid) -> None:
         task = controller.get_task(task_key=UUID(task_uuid))
-        return template('task', todolist_uuid=todolist_uuid, task=task, events=[event for event in controller.get_events(UUID(task_uuid))])
+        return template('task', task=task, events=[event for event in controller.get_events(UUID(task_uuid))])
+
+    @app.route('/task/<task_uuid>/close', method='POST')
+    def close_task(task_uuid) -> None:
+        controller.close_task(task_key=UUID(task_uuid))
+        return redirect(f"/task/{task_uuid}")
+
 
     return app

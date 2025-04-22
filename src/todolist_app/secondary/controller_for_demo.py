@@ -17,10 +17,10 @@ class TodolistControllerForDemo(TodolistControllerPort):
         return task_id
 
     def get_tasks(self, todolist_id: UUID) -> List[TaskPresentation]:
-        return [TaskPresentation(key=uuid4(), name="buy the milk"), TaskPresentation(key=uuid4(), name="eat something")]
+        return [TaskPresentation(key=uuid4(), name="buy the milk", is_opened=True), TaskPresentation(key=uuid4(), name="eat something", is_opened=True)]
 
     def get_task(self, task_key: UUID) -> Optional[TaskPresentation]:
-        return TaskPresentation(key=task_key, name="buy the milk")
+        return TaskPresentation(key=task_key, name="buy the milk", is_opened=True)
 
-    def close_task(self, todolist_uuid: UUID, task_uuid: UUID) -> None:
-        print(f"Tâche {task_uuid} fermée dans la liste {todolist_uuid}")
+    def close_task(self, task_uuid: UUID) -> None:
+        print(f"Tâche {task_uuid} fermée")

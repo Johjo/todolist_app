@@ -13,7 +13,7 @@
         <ul>
             % for task in todolist.tasks:
                 <li>
-                    <a href="/todolist/{{ uuid }}/task/{{ task.key }}">
+                    <a href="/task/{{ task.key }}">
                         {{ task.name }}
                     </a>
                 </li>

@@ -10,9 +10,10 @@
     % if task:
         <h2>{{ task.name }}</h2>
         <p>UUID de la tâche : {{ task.key }}</p>
-        <p>
-            <a href="/todolist/{{ todolist_uuid }}">Retour à la liste</a>
-        </p>
+    <form action="/task/{{task.key}}/close" method="post">
+        <button type="submit">Terminer</button>
+    </form>
+
     % else:
         <p>Tâche non trouvée.</p>
     % end
