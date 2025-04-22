@@ -28,7 +28,7 @@ def start_app(controller: TodolistControllerPort) -> Bottle:
 
     @app.route('/todolist/<todolist_uuid>/task', method='POST')
     def create_task(todolist_uuid) -> None:
-        task_description = request.forms.get('task_description')
+        task_description = request.forms.getunicode('task_description')
         controller.open_task(todolist_key=UUID(todolist_uuid), title=task_description, description="TODO")
         redirect(f'/todolist/{todolist_uuid}')
 
