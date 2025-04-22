@@ -10,9 +10,9 @@
 
     <h2>Tâches</h2>
     {{ todolist_raw_events }}
-    % if tasks:
+    % if todolist.tasks:
         <ul>
-            % for task in tasks:
+            % for task in todolist.tasks:
                 <li>
                     <a href="/todolist/{{ uuid }}/task/{{ task.key }}">
                         {{ task.name }}
