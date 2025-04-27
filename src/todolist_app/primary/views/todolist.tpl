@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Liste de Tâches</h1>
-    <p>UUID de la liste : {{ uuid }}</p>
+    <p>UUID de la liste : {{ todolist.key }}</p>
 
     <h2>Tâches</h2>
     % if todolist and todolist.tasks:
@@ -14,7 +14,12 @@
             % for task in todolist.tasks:
                 <li>
                     <a href="/task/{{ task.key }}">
-                        {{ task.name }}
+                        % if task.is_opened:
+                            {{ task.name }}
+                        % else:
+                            <s> {{ task.name }}</s>
+                        % end
+
                     </a>
                 </li>
             % end
@@ -24,7 +29,7 @@
     % end
 
     <h2>Ajouter une tâche</h2>
-    <form action="/todolist/{{ uuid }}/task" method="post">
+    <form action="/todolist/{{ todolist.key }}/task" method="post">
         <label for="task-description">Description de la tâche :</label>
         <input type="text" id="task-description" name="task_description" required>
 

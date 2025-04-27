@@ -23,7 +23,7 @@ def start_app(controller: TodolistControllerPort) -> Bottle:
     @app.route('/todolist/<uuid>')
     def show_todolist(uuid) -> None:
         todolist = controller.get_todolist(todolist_key=UUID(uuid))
-        return template('todolist', uuid=uuid, todolist=todolist,
+        return template('todolist', todolist=todolist,
                         events=[event for event in controller.get_events(UUID(uuid))])
 
     @app.route('/todolist/<todolist_uuid>/task', method='POST')
