@@ -217,7 +217,7 @@ todolist-hexagon = {git = "https://github.com/Johjo/todolist_hexagon.git"}
 type = "git"
 url = "https://github.com/Johjo/todolist_controller"
 reference = "HEAD"
-resolved_reference = "85682b63d69d218daf00b4214535ec6be40a3896"
+resolved_reference = "970ec0b09586a614b81489785926ea7c2879a22d"
 
 [[package]]
 name = "todolist-hexagon"
@@ -238,7 +238,7 @@ pytest = ">=8.3.5,<9.0.0"
 type = "git"
 url = "https://github.com/Johjo/todolist_hexagon.git"
 reference = "HEAD"
-resolved_reference = "6884f846ebe77190ecd9fcabe15d19cbc473b7bd"
+resolved_reference = "cc8d70ff1c23af82df68043d58f8bb3eb5ab4dd2"
 
 [[package]]
 name = "typing-extensions"

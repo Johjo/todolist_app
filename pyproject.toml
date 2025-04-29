@@ -19,6 +19,7 @@ dependencies = [
 packages = [
     { include = "todolist_app", from = "src" }
 ]
+package-mode = false
 
 
 [build-system]
