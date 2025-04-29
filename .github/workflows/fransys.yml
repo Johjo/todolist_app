@@ -1,0 +1,53 @@
+name: Fransys CI on test_fransys
+
+on:
+  push:
+    branches: [ "test_fransys", "fransys_ci-test_fransys" ]
+
+env:
+  FRANSYS_REGISTRY: ${{ secrets.FRANSYS_REGISTRY_DOMAIN }}/${{ secrets.FRANSYS_REGISTRY_PROJECT }}/test_fransys
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: fransys/buildpack:latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to Fransys registry
+        run: docker login -u ${{ secrets.FRANSYS_REGISTRY_TEST_FRANSYS_USERNAME }} -p ${{ secrets.FRANSYS_REGISTRY_TEST_FRANSYS_PASSWORD }} ${{ secrets.FRANSYS_REGISTRY_DOMAIN }}
+      - name: Prepare the directory
+        run: cp -r /build build
+      - name: Build the Docker image
+        run: docker buildx build --cache-from "$FRANSYS_REGISTRY:${{ github.sha }}" --cache-from "$FRANSYS_REGISTRY:${{ github.ref_name }}" -f ${{ vars.DOCKERFILE_PATH }} --tag "$FRANSYS_REGISTRY:${{ github.sha }}" --progress=plain . 2>&1
+      - name: Push the image
+        if: github.ref == 'refs/heads/test_fransys'
+        run: docker push "$FRANSYS_REGISTRY:${{ github.sha }}"
+
+  publish-latest:
+    runs-on: ubuntu-latest
+    container:
+      image: fransys/crane:v0.16.1
+    if: github.ref == 'refs/heads/test_fransys'
+    needs: [
+      build,
+    ]
+    steps:
+      - name: Login to Fransys registry
+        run: crane auth login -u ${{ secrets.FRANSYS_REGISTRY_TEST_FRANSYS_USERNAME }} -p ${{ secrets.FRANSYS_REGISTRY_TEST_FRANSYS_PASSWORD }} ${{ secrets.FRANSYS_REGISTRY_DOMAIN }}
+      - name: Push the Docker image for latest
+        run: crane copy "$FRANSYS_REGISTRY:${{ github.sha }}" "$FRANSYS_REGISTRY:latest"
+
+  publish-ref:
+    runs-on: ubuntu-latest
+    container:
+      image: fransys/crane:v0.16.1
+    if: github.ref == 'refs/heads/test_fransys'
+    needs: [
+      build,
+    ]
+    steps:
+      - name: Login to Fransys registry
+        run: crane auth login -u ${{ secrets.FRANSYS_REGISTRY_TEST_FRANSYS_USERNAME }} -p ${{ secrets.FRANSYS_REGISTRY_TEST_FRANSYS_PASSWORD }} ${{ secrets.FRANSYS_REGISTRY_DOMAIN }}
+      - name: Push the Docker image for ref
+        run: crane copy "$FRANSYS_REGISTRY:${{ github.sha }}" "$FRANSYS_REGISTRY:${{ github.ref_name }}"
