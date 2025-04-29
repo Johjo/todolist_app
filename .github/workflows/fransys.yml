@@ -19,7 +19,7 @@ jobs:
       - name: Prepare the directory
         run: cp -r /build build
       - name: Build the Docker image
-        run: docker buildx build --cache-from "$FRANSYS_REGISTRY:${{ github.sha }}" --cache-from "$FRANSYS_REGISTRY:${{ github.ref_name }}" -f ${{ steps.prepare-vars.outputs.DOCKERFILE_PATH }} --tag "$FRANSYS_REGISTRY:${{ github.sha }}" --progress=plain . 2>&1
+        run: docker buildx build --cache-from "$FRANSYS_REGISTRY:${{ github.sha }}" --cache-from "$FRANSYS_REGISTRY:${{ github.ref_name }}" -f ${{ vars.DOCKERFILE_PATH }} --tag "$FRANSYS_REGISTRY:${{ github.sha }}" --progress=plain . 2>&1
       - name: Push the image
         if: github.ref == 'refs/heads/test_fransys'
         run: docker push "$FRANSYS_REGISTRY:${{ github.sha }}"
