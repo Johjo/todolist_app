@@ -16,14 +16,14 @@
 
         <h3>Créer une sous-tâche</h3>
         <form action="/task/{{task.key}}/subtask" method="post">
-            <label for="subtask_title">Titre de la sous-tâche :</label>
-            <input type="text" id="subtask_title" name="title" required>
-            
-            <label for="subtask_description">Description :</label>
-            <textarea id="subtask_description" name="description"></textarea>
-            
-            <button type="submit">Créer sous-tâche</button>
+        <label for="subtask-description">Description de la tâche :</label>
+        <input type="text" id="subtask-description" name="subtask_description" required>
+
+        <button type="submit">Ajouter la tâche</button>
         </form>
+
+    % include('task_list.tpl', tasks=task.subtasks)
+
 
     % else:
         <p>Tâche non trouvée.</p>

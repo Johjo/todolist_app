@@ -16,37 +16,7 @@
         <button type="submit">Ajouter la tâche</button>
     </form>
 
-
-    <h2>Tâches</h2>
-    % if todolist and todolist.tasks:
-    <h3>Ouvertes</h3>
-        <ul>
-        % for task in todolist.tasks:
-            % if task.is_opened:
-            <li>
-                <a href="/task/{{ task.key }}">
-                    {{ task.name }}
-                </a>
-            </li>
-            % end
-        % end
-        </ul>
-    <h3>Fermées</h3>
-        <ul>
-        % for task in todolist.tasks:
-            % if not task.is_opened:
-            <li>
-                <a href="/task/{{ task.key }}">
-                    <s> {{ task.name }}</s>
-                </a>
-            </li>
-            % end
-        % end
-    </ul>
-    % else:
-        <p>Aucune tâche dans cette liste.</p>
-    % end
-
+    % include('task_list.tpl', tasks=todolist.tasks)
     % include('history.tpl', events=events)
 </body>
 </html>

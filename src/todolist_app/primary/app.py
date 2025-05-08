@@ -29,7 +29,7 @@ def start_app(controller: TodolistControllerPort) -> Bottle:
     @app.route('/todolist/<todolist_uuid>/task', method='POST')
     def create_task(todolist_uuid) -> None:
         task_description = request.forms.getunicode('task_description')
-        controller.open_task(todolist_key=UUID(todolist_uuid), title=task_description, description="TODO")
+        controller.open_task(todolist_key=UUID(todolist_uuid), title=task_description, description="")
         redirect(f'/todolist/{todolist_uuid}')
 
     @app.route('/task/<task_uuid>')
@@ -44,19 +44,8 @@ def start_app(controller: TodolistControllerPort) -> Bottle:
 
     @app.route('/task/<parent_task_uuid>/subtask', method='POST')
     def create_subtask(parent_task_uuid) -> None:
-        title = request.forms.getunicode('title')
-        description = request.forms.getunicode('description', '')
-        parent_task = controller.get_task(task_key=UUID(parent_task_uuid))
-        
-        if parent_task:
-            subtask_uuid = controller.open_task(
-                todolist_key=parent_task.todolist_key, 
-                title=title, 
-                description=description,
-                parent_task_key=UUID(parent_task_uuid)
-            )
-            return redirect(f"/task/{subtask_uuid}")
-        
-        return redirect(f"/task/{parent_task_uuid}")
+        task_description = request.forms.getunicode('subtask_description')
+        controller.open_sub_task(parent_task_key=UUID(parent_task_uuid), title=task_description, description="")
+        redirect(f'/task/{parent_task_uuid}')
 
     return app
