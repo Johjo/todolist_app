@@ -232,14 +232,14 @@ develop = false
 [package.dependencies]
 psycopg2 = ">=2.9.10,<3.0.0"
 pytest = ">=8.3.5,<9.0.0"
-todolist-hexagon = {git = "https://github.com/Johjo/todolist_hexagon.git"}
+todolist-hexagon = {git = "https://github.com/Johjo/todolist_hexagon"}
 types-psycopg2 = ">=2.9.21.20250318,<3.0.0.0"
 
 [package.source]
 type = "git"
 url = "https://github.com/Johjo/todolist_controller"
 reference = "HEAD"
-resolved_reference = "0d383fa9e8eb4df1a09c3bb5e7861003215abfe7"
+resolved_reference = "161fed732856562a9e3bdeeb7d51487d1bfe6bea"
 
 [[package]]
 name = "todolist-hexagon"
@@ -258,9 +258,9 @@ pytest = ">=8.3.5,<9.0.0"
 
 [package.source]
 type = "git"
-url = "https://github.com/Johjo/todolist_hexagon.git"
+url = "https://github.com/Johjo/todolist_hexagon"
 reference = "HEAD"
-resolved_reference = "5d77c59db9aa397b6799f098bc49770e4093ca1f"
+resolved_reference = "58bc7c97e45343d10565fafda0ebedcfda66fa7c"
 
 [[package]]
 name = "types-psycopg2"
