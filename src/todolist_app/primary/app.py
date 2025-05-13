@@ -48,4 +48,11 @@ def start_app(controller: TodolistControllerPort) -> Bottle:
         controller.open_sub_task(parent_task_key=UUID(parent_task_uuid), title=task_description, description="")
         redirect(f'/task/{parent_task_uuid}')
 
+    @app.route('/task/<task_uuid>/describe', method='POST')
+    def describe_task(task_uuid) -> None:
+        task_description = request.forms.getunicode('task_description')
+        controller.describe_task(task_key=UUID(task_uuid), title=task_description, description="")
+        redirect(f'/task/{task_uuid}')
+
+
     return app

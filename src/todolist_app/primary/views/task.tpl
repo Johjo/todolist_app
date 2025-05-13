@@ -9,7 +9,15 @@
 
     % if task:
         <h2>{{ task.name }}</h2>
-        <p>UUID de la tâche : {{ task.key }}</p>
+
+
+    <form action="/task/{{task.key}}/describe" method="post">
+        <label for="task-description">Renommer la tâche :</label>
+        <input type="text" id="task-description" name="task_description" required>
+        <button type="submit">Renommer la tâche</button>
+    </form>
+
+    <p>UUID de la tâche : {{ task.key }}</p>
         <form action="/task/{{task.key}}/close" method="post">
             <button type="submit">Terminer</button>
         </form>
