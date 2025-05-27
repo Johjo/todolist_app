@@ -239,7 +239,7 @@ types-psycopg2 = ">=2.9.21.20250318,<3.0.0.0"
 type = "git"
 url = "https://github.com/Johjo/todolist_controller"
 reference = "HEAD"
-resolved_reference = "25072c4f717c5e4bc8cefee9d931ac54a6d112a2"
+resolved_reference = "c34f24c36aef38653474eba7ebebc417a435fa35"
 
 [[package]]
 name = "todolist-hexagon"
