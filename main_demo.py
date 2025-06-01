@@ -11,7 +11,7 @@ from todolist_app.primary.app import start_app
 load_dotenv()
 
 
-def provide_dependencies():
+def provide_dependencies() -> PyqureMemory:
     dependencies: PyqureMemory = {}
     (provide, _) = pyqure(dependencies)
     provide(keys.TODOLIST_DB_NAME, os.getenv("DB_NAME"))
