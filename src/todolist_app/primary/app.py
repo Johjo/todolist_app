@@ -2,10 +2,13 @@ import os  # type: ignore
 from uuid import UUID
 
 from bottle import TEMPLATE_PATH, Bottle, template, request, redirect  # type: ignore
+from pyqure import PyqureMemory, pyqure
 from todolist_controller.primary_port import TodolistControllerPort
+from todolist_controller import injection_keys as keys
 
-
-def start_app(controller: TodolistControllerPort) -> Bottle:
+def start_app(dependencies: PyqureMemory) -> Bottle:
+    (_, inject) = pyqure(dependencies)
+    controller: TodolistControllerPort = inject(keys.TODOLIST_CONTROLLER)
     current_dir = os.path.dirname(__file__)
     views_dir = os.path.join(current_dir, 'views')
     TEMPLATE_PATH.insert(0, views_dir)
